@@ -36,4 +36,27 @@ class LinkedList(object):
         return self.length
 
     def search(self, value):
-        
+        x = self.head
+        if x is not None:
+            while x.next_node is not None:
+                if (x.value == value):
+                    return x
+                x = x.next_node
+            if (x.value == value):
+                return x
+
+    def remove(self, value):
+        node_val = self.search(value)
+        prev_node = node_val.prev
+        prev_node.next_node = node_val.next_node
+        self.length -= 1
+
+    def display(self):
+        tup = []
+        x = self.head
+        while x is not None:
+            tup.append(x.value)
+            x = x.next_node
+        tup = tuple(tup)
+        print(tup)
+        return tup
