@@ -16,8 +16,19 @@ class LinkedList(object):
         self.length = 0
 
     def insert(self, value):
-        for i in value:
-            new_node_value = Node(i)
+        try:
+            for i in value:
+                new_node_value = Node(i)
+                if self.head is None:
+                    self.head = new_node_value
+                    self.length += 1
+                else:
+                    new_node_value.next_node = self.head
+                    new_node_value.next_node.prev = new_node_value
+                    self.head = new_node_value
+                    self.length += 1
+        except TypeError:
+            new_node_value = Node(value)
             if self.head is None:
                 self.head = new_node_value
                 self.length += 1

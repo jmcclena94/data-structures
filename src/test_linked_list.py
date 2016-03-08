@@ -3,7 +3,8 @@ import pytest
 
 
 NODE_TABLE = [
-    (5, 5)
+    (5, 5),
+    ([1, 2, 3], [1, 2, 3])
 ]
 
 INSERT_TABLE = [
