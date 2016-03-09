@@ -1,16 +1,12 @@
 # coding=utf-8
+from linked_list import LinkedList
+from linked_list import Node
 
 
-class Node(object):
-
-    def __init__(self, value):
-        self.value = value
-        self.next_node = None
-
-
-class LinkedList(object):
+class DoubleLink(object):
 
     def __init__(self):
+        self.prev = None
         self.head = None
         self.length = 0
 
@@ -23,6 +19,7 @@ class LinkedList(object):
                     self.length += 1
                 else:
                     new_node_value.next_node = self.head
+                    new_node_value.next_node.prev = new_node_value
                     self.head = new_node_value
                     self.length += 1
         except TypeError:
@@ -32,43 +29,34 @@ class LinkedList(object):
                 self.length += 1
             else:
                 new_node_value.next_node = self.head
+                new_node_value.next_node.prev = new_node_value
                 self.head = new_node_value
                 self.length += 1
 
-    def pop(self):
-        pop_value = self.head.value
-        self.head = self.head.next_node
-        self.length -= 1
-        return pop_value
-
-    def size(self):
-        return self.length
-
-    def search(self, value):
+    def append(self, value):
         current_node = self.head
         if current_node is not None:
             while current_node.next_node is not None:
-                if (current_node.value == value):
-                    return current_node
                 current_node = current_node.next_node
-            if (current_node.value == value):
-                return current_node
+            new_node = Node(value)
+            current_node.next_node = new_node
+            new_node.prev = current_node
+
+    def pop(self):
+        pop_val = LinkedList.pop(self)
+        return pop_val
+
+    def shift(self):
+        current_node = self.head
+        if current_node is not None:
+            while current_node.next_node is not None:
+                current_node = current_node.next_node
+            current_node.prev.next_node = None
+            return current_node.value
 
     def remove(self, value):
-        current_node = self.head
-        if current_node is not None:
-            while current_node.next_node is not None:
-                if (current_node.next_node.value == value):
-                    current_node.next_node = current_node.next_node.next_node
-                    self.length -= 1
-                current_node = current_node.next_node
-
-    def display(self):
-        tup = []
-        current_node = self.head
-        while current_node is not None:
-            tup.append(current_node.value)
-            current_node = current_node.next_node
-        tup = tuple(tup)
-        print(tup)
-        return tup
+        node_val = LinkedList.search(self, value)
+        prev_node = node_val.prev
+        next_node = node_val.next_node
+        node_val.prev.next_node = next_node
+        node_val.next_node.prev = prev_node
