@@ -5,13 +5,33 @@ from linked_list import Node
 
 class DoubleLink(object):
 
-    def __init__(self, value):
+    def __init__(self):
+        self.prev = None
         self.head = None
         self.length = 0
-        self.dll = LinkedList.insert(self, value)
 
     def insert(self, value):
-        self.dll = LinkedList.insert(self, value)
+        try:
+            for i in value:
+                new_node_value = Node(i)
+                if self.head is None:
+                    self.head = new_node_value
+                    self.length += 1
+                else:
+                    new_node_value.next_node = self.head
+                    new_node_value.next_node.prev = new_node_value
+                    self.head = new_node_value
+                    self.length += 1
+        except TypeError:
+            new_node_value = Node(value)
+            if self.head is None:
+                self.head = new_node_value
+                self.length += 1
+            else:
+                new_node_value.next_node = self.head
+                new_node_value.next_node.prev = new_node_value
+                self.head = new_node_value
+                self.length += 1
 
     def append(self, value):
         x = self.head
