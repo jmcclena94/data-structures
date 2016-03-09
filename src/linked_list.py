@@ -65,10 +65,10 @@ class LinkedList(object):
 
     def display(self):
         tup = []
-        x = self.head
-        while x is not None:
-            tup.append(x.value)
-            x = x.next_node
+        current_node = self.head
+        while current_node is not None:
+            tup.append(current_node.value)
+            current_node = current_node.next_node
         tup = tuple(tup)
         print(tup)
         return tup

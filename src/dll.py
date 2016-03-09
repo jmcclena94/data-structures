@@ -34,25 +34,25 @@ class DoubleLink(object):
                 self.length += 1
 
     def append(self, value):
-        x = self.head
-        if x is not None:
-            while x.next_node is not None:
-                x = x.next_node
+        current_node = self.head
+        if current_node is not None:
+            while current_node.next_node is not None:
+                current_node = current_node.next_node
             new_node = Node(value)
-            x.next_node = new_node
-            new_node.prev = x
+            current_node.next_node = new_node
+            new_node.prev = current_node
 
     def pop(self):
         pop_val = LinkedList.pop(self)
         return pop_val
 
     def shift(self):
-        x = self.head
-        if x is not None:
-            while x.next_node is not None:
-                x = x.next_node
-            x.prev.next_node = None
-            return x.value
+        current_node = self.head
+        if current_node is not None:
+            while current_node.next_node is not None:
+                current_node = current_node.next_node
+            current_node.prev.next_node = None
+            return current_node.value
 
     def remove(self, value):
         node_val = LinkedList.search(self, value)
