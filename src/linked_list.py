@@ -2,19 +2,24 @@
 
 
 class Node(object):
+    """Create a list node."""
 
     def __init__(self, value):
+        """Initialize the list node."""
         self.value = value
         self.next_node = None
 
 
 class LinkedList(object):
+    """Create a linked list."""
 
     def __init__(self):
+        """Initialize a linked list."""
         self.head = None
         self.length = 0
 
     def insert(self, value):
+        """Insert a value to the list."""
         try:
             for i in value:
                 new_node_value = Node(i)
@@ -36,15 +41,18 @@ class LinkedList(object):
                 self.length += 1
 
     def pop(self):
+        """Remove the head of the list."""
         pop_value = self.head.value
         self.head = self.head.next_node
         self.length -= 1
         return pop_value
 
     def size(self):
+        """Return the size of the list."""
         return self.length
 
     def search(self, value):
+        """Search for a value in the list."""
         current_node = self.head
         if current_node is not None:
             while current_node.next_node is not None:
@@ -55,6 +63,7 @@ class LinkedList(object):
                 return current_node
 
     def remove(self, value):
+        """Remove a value from the list."""
         current_node = self.head
         if current_node is not None:
             while current_node.next_node is not None:
@@ -64,6 +73,7 @@ class LinkedList(object):
                 current_node = current_node.next_node
 
     def display(self):
+        """Display the list."""
         tup = []
         current_node = self.head
         while current_node is not None:

@@ -4,13 +4,16 @@ from linked_list import Node
 
 
 class DoubleLink(object):
+    """Create a double linked list."""
 
     def __init__(self):
+        """Initialize the double linked list."""
         self.prev = None
         self.head = None
         self.length = 0
 
     def insert(self, value):
+        """Insert a value onto the double linked list."""
         try:
             for i in value:
                 new_node_value = Node(i)
@@ -34,6 +37,7 @@ class DoubleLink(object):
                 self.length += 1
 
     def append(self, value):
+        """Append a value to the end of a double link list."""
         current_node = self.head
         if current_node is not None:
             while current_node.next_node is not None:
@@ -43,18 +47,25 @@ class DoubleLink(object):
             new_node.prev = current_node
 
     def pop(self):
+        """Remove the first value of the list."""
         pop_val = LinkedList.pop(self)
         return pop_val
 
     def shift(self):
+        """Remove the last value of the list."""
         current_node = self.head
         if current_node is not None:
             while current_node.next_node is not None:
                 current_node = current_node.next_node
-            current_node.prev.next_node = None
+            try:
+                current_node.prev.next_node = None
+            except AttributeError:
+                current_node.next_node = None
+                self.head = None
             return current_node.value
 
     def remove(self, value):
+        """Remove a specified value from the list."""
         node_val = LinkedList.search(self, value)
         prev_node = node_val.prev
         next_node = node_val.next_node
