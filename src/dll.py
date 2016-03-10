@@ -51,7 +51,11 @@ class DoubleLink(object):
         if current_node is not None:
             while current_node.next_node is not None:
                 current_node = current_node.next_node
-            current_node.prev.next_node = None
+            try:
+                current_node.prev.next_node = None
+            except AttributeError:
+                current_node.next_node = None
+                self.head = None
             return current_node.value
 
     def remove(self, value):

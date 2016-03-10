@@ -6,3 +6,4 @@ Contains methods for creating:
     Linked List
     Stack
     Double Linked List
+    Queue
