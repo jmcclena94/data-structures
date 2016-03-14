@@ -45,6 +45,10 @@ class DoubleLink(object):
             new_node = Node(value)
             current_node.next_node = new_node
             new_node.prev = current_node
+        else:
+            new_node = Node(value)
+            current_node = new_node
+            self.head = current_node
 
     def pop(self):
         """Remove the first value of the list."""
