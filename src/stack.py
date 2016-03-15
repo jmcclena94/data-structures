@@ -10,13 +10,14 @@ class Stack(object):
         """Initialize the stack."""
         self.head = None
         self.length = 0
-        self.stack = LinkedList.insert(self, value)
+        self.stack = LinkedList()
+        self.stack.insert(value)
 
     def push(self, value):
         """Push a new value onto the stack."""
-        self.stack = LinkedList.insert(self, value)
+        self.stack.insert(value)
 
     def pop(self):
         """Remove the first value on the stack."""
-        pop_val = LinkedList.pop(self)
+        pop_val = self.stack.pop()
         return pop_val

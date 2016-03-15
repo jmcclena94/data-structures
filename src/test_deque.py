@@ -32,7 +32,7 @@ def test_append(value, result):
     from deque import Deque
     new_deque = Deque()
     new_deque.append(value)
-    assert new_deque.head.value == result
+    assert new_deque.container.head.value == result
 
 
 @pytest.mark.parametrize('value, result', APPEND_LEFT_TABLE)
@@ -40,7 +40,7 @@ def test_append_left(value, result):
     from deque import Deque
     new_deque = Deque()
     new_deque.appendleft(value)
-    assert new_deque.head.value == result
+    assert new_deque.container.head.value == result
 
 
 @pytest.mark.parametrize('value, result', POP_TABLE)
