@@ -7,3 +7,10 @@ Contains methods for creating:
     Stack
     Double Linked List
     Queue
+    Deque
+    Binary Heap
+
+Tools used:
+    python docs
+    stack overflow
+    interactivepython.org
