@@ -16,7 +16,7 @@ POP_TABLE = [
 @pytest.mark.parametrize('value, result', PUSH_TABLE)
 def test_push(value, result):
     from stack import Stack
-    assert Stack(value).head.value == result
+    assert Stack(value).stack.head.value == result
 
 
 @pytest.mark.parametrize('value, result', POP_TABLE)

@@ -11,6 +11,7 @@ class DoubleLink(object):
         self.prev = None
         self.head = None
         self.length = 0
+        self.linked_list = LinkedList()
 
     def insert(self, value):
         """Insert a value onto the double linked list."""
@@ -52,8 +53,10 @@ class DoubleLink(object):
 
     def pop(self):
         """Remove the first value of the list."""
-        pop_val = LinkedList.pop(self)
-        return pop_val
+        pop_value = self.head.value
+        self.head = self.head.next_node
+        self.length -= 1
+        return pop_value
 
     def shift(self):
         """Remove the last value of the list."""
@@ -70,7 +73,14 @@ class DoubleLink(object):
 
     def remove(self, value):
         """Remove a specified value from the list."""
-        node_val = LinkedList.search(self, value)
+        current_node = self.head
+        if current_node is not None:
+            while current_node.next_node is not None:
+                if (current_node.value == value):
+                    node_val = current_node
+                current_node = current_node.next_node
+            if (current_node.value == value):
+                node_val = current_node
         prev_node = node_val.prev
         next_node = node_val.next_node
         node_val.prev.next_node = next_node

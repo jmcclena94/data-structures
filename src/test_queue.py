@@ -26,7 +26,7 @@ def test_enqueue(value, result):
     from queue import Queue
     test_queue = Queue()
     test_queue.enqueue(value)
-    assert test_queue.head.value == result
+    assert test_queue.container.head.value == result
 
 
 @pytest.mark.parametrize('value, result', DEQUEUE_TABLE)
@@ -57,4 +57,4 @@ def test_size(value, result):
     from queue import Queue
     test_queue = Queue()
     test_queue.enqueue(value)
-    assert test_queue.length == result
+    assert test_queue.container.length == result
