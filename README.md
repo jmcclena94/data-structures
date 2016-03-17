@@ -1,6 +1,6 @@
 # data-structures
 CF Python 401 Linked List assignment
-Authors: Joe McClenahan and Alex German
+Authors: Joe McClenahan and Wenjing Qiang
 
 Contains methods for creating:
     Linked List
@@ -9,6 +9,8 @@ Contains methods for creating:
     Queue
     Deque
     Binary Heap
+    Priority Queue
+    Directed Graph
 
 Tools used:
     python docs
