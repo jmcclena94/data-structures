@@ -42,6 +42,6 @@ class Pqueue(object):
                 self.pqueue[comp_idx] = self.pqueue[idx]
             idx = comp_idx
 
-
-
+    def peek(self):
+        return self.pqueue[0]
 
