@@ -124,3 +124,51 @@ def test_adjacent_error():
     new_graph.graph = {'A': ['A', 'B', 'C']}
     with pytest.raises(KeyError):
         new_graph.adjacent('A', 'E')
+
+def test_depth_first_traversal():
+    from simple_graph import SimpleGraph
+    new_graph = SimpleGraph()
+    new_graph.graph = {'A': ['B', 'C'],
+                       'B': ['D', 'E'],
+                       'D': [],
+                       'E': ['F'],
+                       'C': ['F'],
+                       'F': [],
+                       }
+    assert new_graph.dft("A") == ['A', 'C', 'F', 'B', 'E', 'D']
+
+def test_dft_cyclic():
+    from simple_graph import SimpleGraph
+    new_graph = SimpleGraph()
+    new_graph.graph = {'A': ['B', 'C'],
+                       'B': ['D', 'E'],
+                       'D': [],
+                       'E': ['F'],
+                       'C': ['F'],
+                       'F': ['A'],
+                       }
+    assert new_graph.dft("A") == ['A', 'C', 'F', 'B', 'E', 'D']
+
+def test_breadth_first_traversal():
+    from simple_graph import SimpleGraph
+    new_graph = SimpleGraph()
+    new_graph.graph = {'A': ['B', 'C'],
+                       'B': ['D', 'E'],
+                       'D': [],
+                       'E': ['F'],
+                       'C': ['F'],
+                       'F': [],
+                       }
+    assert new_graph.bft("A") == ['A', 'C', 'B', 'F', 'E', 'D']
+
+def test_bft_cyclic():
+    from simple_graph import SimpleGraph
+    new_graph = SimpleGraph()
+    new_graph.graph = {'A': ['B', 'C'],
+                       'B': ['D', 'E'],
+                       'D': [],
+                       'E': ['F'],
+                       'C': ['F'],
+                       'F': ['A'],
+                       }
+    assert new_graph.bft("A") == ['A', 'C', 'B', 'F', 'E', 'D']
