@@ -10,29 +10,29 @@ class SimpleGraph(object):
 
     def add_node(self, n):
         """Add a new node to the graph."""
-        self.graph[n] = []
+        self.graph[n] = {}
 
     def nodes(self):
         """Return a list of nodes."""
         return list(self.graph.keys())
 
-    def add_edge(self, n1, n2):
+    def add_edge(self, n1, n2, weight):
         """Add an edge to the graph pointing from n1 to n2."""
         node_list = list(self.graph.keys())
         if n1 not in node_list:
             self.add_node(n1)
         elif n2 not in node_list:
             self.add_node(n2)
-        self.graph[n1].append(n2)
+        self.graph[n1][n2] = weight
 
     def edges(self):
         """Return a list of all edges in the graph."""
         node_list = list(self.graph.keys())
         edge_list = []
         for node in node_list:
-            edges = self.graph[node]
+            edges = list(self.graph[node].keys())
             for edge in edges:
-                edge_val = (node, edge)
+                edge_val = (node, edge, self.graph[node][edge])
                 edge_list.append(edge_val)
         return edge_list
 
@@ -43,7 +43,7 @@ class SimpleGraph(object):
             node_list = list(self.graph.keys())
             for node in node_list:
                 if n in self.graph[node]:
-                    self.graph[node].remove(n)
+                    self.graph[node].pop(n)
         except KeyError:
             raise KeyError
 
@@ -51,7 +51,7 @@ class SimpleGraph(object):
         """Delete the edge from n1 to n2."""
         try:
             if n2 in self.graph[n1]:
-                self.graph[n1].remove(n2)
+                self.graph[n1].pop(n2)
             else:
                 raise ValueError
         except KeyError:
@@ -68,7 +68,7 @@ class SimpleGraph(object):
     def neighbors(self, n):
         """Return the neighbors of node n."""
         try:
-            return self.graph[n]
+            return list(self.graph[n].keys())
         except KeyError:
             raise KeyError
 
@@ -91,7 +91,7 @@ class SimpleGraph(object):
             next_val = to_visit.pop()
             if next_val not in visited:
                 visited.append(next_val)
-                to_visit = to_visit + self.graph[next_val]
+                to_visit = to_visit + list(self.graph[next_val].keys())
         return visited
 
     def bft(self, start):
@@ -102,24 +102,24 @@ class SimpleGraph(object):
             next_val = to_visit.pop()
             if next_val not in visited:
                 visited.append(next_val)
-                to_visit = self.graph[next_val] + to_visit
+                to_visit = list(self.graph[next_val].keys()) + to_visit
         return visited
 
 
 if __name__ == '__main__':
     new_graph = SimpleGraph()
-    new_graph.graph = {'A': ['B', 'C'],
-                       'B': ['D', 'E'],
-                       'D': [],
-                       'E': ['F'],
-                       'C': ['F'],
-                       'F': [],
+    new_graph.graph = {'A': {'B': 10, 'C': 20},
+                       'B': {'D': 5, 'E': 3},
+                       'D': {},
+                       'E': {'F': 13},
+                       'C': {'F': 16},
+                       'F': {'A': 100},
                        }
     dft = new_graph.dft('A')
     bft = new_graph.bft('A')
     print("Depth first traversal:" + str(dft))
     print("Breadth first traversal:" + str(bft))
-    new_graph.add_edge('F', 'C')
+    new_graph.add_edge('F', 'C', 10)
     dft = new_graph.dft('A')
     bft = new_graph.bft('A')
     print("Depth first traversal(cyclic):" + str(dft))
