@@ -105,6 +105,31 @@ class SimpleGraph(object):
                 to_visit = list(self.graph[next_val].keys()) + to_visit
         return visited
 
+    def dijkstra(self, node1, node2):
+        """Return the shortest visit path of a graph."""
+        distance_dict = {}
+        for key in self.graph:
+            if key == node1:
+                distance_dict[key] = {'distance': 0, 'path': [node1]}
+            else:
+                distance_dict[key] = {'distance': float('inf'), 'path': []}
+        visited = []
+        to_visit = [node1]
+        while to_visit:
+            parent = to_visit.pop()
+            if parent not in visited:
+                children = list(self.graph[parent].keys())
+                for child in children:
+                    n1_distance = distance_dict[child]['distance']
+                    weighted_distance = distance_dict[parent]['distance'] + self.graph[parent][child]
+                    # import pdb;pdb.set_trace()
+                    if n1_distance > weighted_distance:
+                        distance_dict[child]['distance'] = weighted_distance
+                        distance_dict[child]['path'] = distance_dict[parent]['path'] + [child]
+                to_visit = children + to_visit
+            visited.append(parent)
+        return distance_dict[node2]['distance'], distance_dict[node2]['path']
+
 
 if __name__ == '__main__':
     new_graph = SimpleGraph()

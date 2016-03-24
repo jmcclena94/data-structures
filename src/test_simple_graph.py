@@ -173,3 +173,23 @@ def test_bft_cyclic():
     keys = list(new_graph.graph.keys())
     for val in visited:
         assert val in keys
+
+
+def test_dijkstra():
+  from simple_graph import SimpleGraph
+  new_graph = SimpleGraph()
+  new_graph.graph = {'A': {'B': 5, 'C': 20},
+                     'B': {'D': 5, 'E': 3},
+                     'D': {},
+                     'E': {'F': 13},
+                     'C': {'F': 16},
+                     'F': {'A': 100},
+                     }
+  distance, path = new_graph.dijkstra('A', 'F')
+  assert distance == 21
+  assert path == ['A', 'B', 'E', 'F']
+
+
+
+
+
