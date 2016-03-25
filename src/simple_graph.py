@@ -105,7 +105,7 @@ class SimpleGraph(object):
                 to_visit = list(self.graph[next_val].keys()) + to_visit
         return visited
 
-    def dijkstra(self, node1, node2):
+    def bellman(self, node1, node2):
         """Return the shortest visit path of a graph."""
         distance_dict = {}
         for key in self.graph:
@@ -121,15 +121,48 @@ class SimpleGraph(object):
                 children = list(self.graph[parent].keys())
                 for child in children:
                     n1_distance = distance_dict[child]['distance']
-                    weighted_distance = distance_dict[parent]['distance'] + self.graph[parent][child]
+                    weighted_distance = distance_dict[
+                        parent]['distance'] + self.graph[parent][child]
                     # import pdb;pdb.set_trace()
                     if n1_distance > weighted_distance:
                         distance_dict[child]['distance'] = weighted_distance
-                        distance_dict[child]['path'] = distance_dict[parent]['path'] + [child]
+                        distance_dict[child]['path'] = distance_dict[
+                            parent]['path'] + [child]
                 to_visit = children + to_visit
             visited.append(parent)
         return distance_dict[node2]['distance'], distance_dict[node2]['path']
 
+    def dijkstra(self, node1, node2):
+        """Return the shortest visit path of a graph."""
+        distance_dict = {}
+        for key in self.graph:
+            if key == node1:
+                distance_dict[key] = {'distance': 0, 'path': [node1]}
+            else:
+                distance_dict[key] = {'distance': float('inf'), 'path': []}
+        visited = []
+        to_visit = [node1]
+        while to_visit:
+            parent = to_visit.pop()
+            print(parent)
+            if parent not in visited:
+                children_dict = self.graph[parent]
+                children_wgt = []
+                for key, val in children_dict.items():
+                    children_wgt.append([key, val])
+                children_sort = sorted(
+                                children_wgt, key=lambda child: child[1])
+                for child in children_sort:
+                    n1_distance = distance_dict[child[0]]['distance']
+                    weighted_distance = distance_dict[
+                        parent]['distance'] + child[1]
+                    if n1_distance > weighted_distance:
+                        distance_dict[child[0]]['distance'] = weighted_distance
+                        distance_dict[child[0]]['path'] = distance_dict[
+                            parent]['path'] + [child[0]]
+                to_visit = list(self.graph[parent].keys()) + to_visit
+            visited.append(parent)
+        return distance_dict[node2]['distance'], distance_dict[node2]['path']
 
 if __name__ == '__main__':
     new_graph = SimpleGraph()
