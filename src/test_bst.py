@@ -67,3 +67,13 @@ def test_contain_false():
     new_bst = Bst()
     new_bst.insert(3)
     assert new_bst.contains(4) is False
+
+
+def test_get_size():
+    """Test the size method works."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    new_bst.insert(8)
+    new_bst.insert(5)
+    assert new_bst.get_size() == 3

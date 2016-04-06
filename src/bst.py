@@ -89,7 +89,7 @@ class Bst(object):
                 current_node = current_node.right
         return False
 
-    def size(self):
+    def get_size(self):
         return self.size
 
     def depth(self):
