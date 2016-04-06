@@ -28,7 +28,7 @@ def test_insert_two_values():
     assert new_bst.head.value == 3
     assert new_bst.head.right.value == 4
     assert new_bst.head.left is None
-    
+
 
 def test_insert_three_values():
     """Test three values."""
@@ -41,3 +41,21 @@ def test_insert_three_values():
     assert new_bst.head.right.value == 5
     assert new_bst.head.right.left.value == 4
 
+
+def test_insert_value_already_exists():
+    """Test if value exists it is ignored."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    new_bst.insert(3)
+    assert new_bst.head.right is None
+    assert new_bst.head.left is None
+    assert new_bst.head.value == 3
+
+
+def test_contain_true():
+    """Test if value in list return True."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    assert new_bst.contains(3) is True
