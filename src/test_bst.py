@@ -59,3 +59,11 @@ def test_contain_true():
     new_bst = Bst()
     new_bst.insert(3)
     assert new_bst.contains(3) is True
+
+
+def test_contain_false():
+    """Test if value in list return False."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    assert new_bst.contains(4) is False
