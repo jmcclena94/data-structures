@@ -77,3 +77,13 @@ def test_get_size():
     new_bst.insert(8)
     new_bst.insert(5)
     assert new_bst.get_size() == 3
+
+
+def test_depth():
+    """Test depth works."""
+    from bst import Bst
+    r = range(10)
+    new_bst = Bst()
+    for i in r:
+        new_bst.insert(i)
+    assert new_bst.depth() == 10
