@@ -90,9 +90,11 @@ class Bst(object):
         return False
 
     def get_size(self):
+        """Return the size of the tree."""
         return self.size
 
     def depth(self):
+        """Return the depth of the tree."""
         if self.head is None:
             return 0
         to_visit = [self.head]
@@ -110,6 +112,17 @@ class Bst(object):
                 to_visit.append(current_node.right)
                 depths_visited.append(current_dep + 1)
         return tree_depth
+
+    def balance(self):
+        """Return an integer indicating balance."""
+        temp = self.head
+        self.head = temp.left
+        left_balance = self.depth()
+        self.head = temp.right
+        right_balance = self.depth()
+        total_balance = left_balance - right_balance
+        self.head = temp
+        return total_balance
 
 
 if __name__ == '__main__':

@@ -87,3 +87,32 @@ def test_depth():
     for i in r:
         new_bst.insert(i)
     assert new_bst.depth() == 10
+
+
+def test_balance_left_two_nodes():
+    """Test balance left heavy."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    new_bst.insert(2)
+    assert new_bst.balance() == 1
+
+
+def test_balance_right_two_nodes():
+    """Test balance right heavy."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    new_bst.insert(4)
+    assert new_bst.balance() == -1
+
+
+def test_balance_equal():
+    """Test that tree is balanced."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(3)
+    new_bst.insert(2)
+    new_bst.insert(4)
+    assert new_bst.balance() == 0
+
