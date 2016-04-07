@@ -127,7 +127,7 @@ class Bst(object):
         return total_balance
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # x = range(10)
     # bst = Bst()
     # for i in x:
