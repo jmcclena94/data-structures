@@ -116,3 +116,9 @@ def test_balance_equal():
     new_bst.insert(4)
     assert new_bst.balance() == 0
 
+
+def test_balance_empty_list():
+    """Test returns 0 if tree is empty."""
+    from bst import Bst
+    new_bst = Bst()
+    assert new_bst.balance() == 0

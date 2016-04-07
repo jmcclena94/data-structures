@@ -115,6 +115,8 @@ class Bst(object):
 
     def balance(self):
         """Return an integer indicating balance."""
+        if self.head is None:
+            return 0
         temp = self.head
         self.head = temp.left
         left_balance = self.depth()
