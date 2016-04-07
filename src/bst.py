@@ -128,10 +128,10 @@ class Bst(object):
 
 
 if __name__ == '__main__':
-    x = range(10)
-    bst = Bst()
-    for i in x:
-        bst.insert(i)
-    dot_graph = bst.get_dot()
-    t = subprocess.Popen(["dot", "-Tpng"], stdin=subprocess.PIPE)
-    t.communicate(dot_graph)
+    # x = range(10)
+    # bst = Bst()
+    # for i in x:
+    #     bst.insert(i)
+    # dot_graph = bst.get_dot()
+    # t = subprocess.Popen(["dot", "-Tpng"], stdin=subprocess.PIPE)
+    # t.communicate(dot_graph)
