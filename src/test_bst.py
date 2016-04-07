@@ -122,3 +122,36 @@ def test_balance_empty_list():
     from bst import Bst
     new_bst = Bst()
     assert new_bst.balance() == 0
+
+
+def test_balance_right_complex():
+    """Test a right heavy list with multiple nodes."""
+    from bst import Bst
+    r = range(10)
+    new_bst = Bst()
+    for i in r:
+        new_bst.insert(i)
+    assert new_bst.balance() == -9
+
+
+def test_balance_left_complex():
+    """Test a left heavy list with multiple nodes."""
+    from bst import Bst
+    r = range(10, 0, -1)
+    new_bst = Bst()
+    for i in r:
+        new_bst.insert(i)
+    assert new_bst.balance() == 9
+
+
+def test_balance_equal_complex():
+    """Test a balanced list with multiple nodes."""
+    from bst import Bst
+    r1 = range(5, 0, -1)
+    new_bst = Bst()
+    for i in r1:
+        new_bst.insert(i)
+    r2 = range(10, 14)
+    for i in r2:
+        new_bst.insert(i)
+    assert new_bst.balance() == 0
