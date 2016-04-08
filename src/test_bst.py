@@ -222,15 +222,15 @@ def test_delete():
     assert new_bst.contains(1) is False
 
 
-# def test_delete_on_tree_three_nodes():
-#     """Test that the node selected is removed from the tree."""
-#     from bst import Bst
-#     tree_list = []
-#     new_bst = Bst()
-#     for items in tree_list:
-#         insert(item)
-#     new_bst.delete(val)
-#     assert new_bst.contains(val) is False
+def test_delete_on_range():
+    """Test that the node selected is removed from the tree."""
+    from bst import Bst
+    new_bst = Bst()
+    for items in range(20):
+        new_bst.insert(items)
+    new_bst.delete(10)
+    assert new_bst.contains(10) is False
+
 
 def test_delete_on_complex_tree():
     """Test that the selected node is deleted."""
