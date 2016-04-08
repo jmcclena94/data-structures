@@ -212,3 +212,41 @@ def test_breadth_first():
         results.append(item)
     assert results == [10, 8, 15, 7, 9, 13, 20]
 
+
+def test_delete():
+    """Test that the selected node is deleted."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(1)
+    new_bst.delete(1)
+    assert new_bst.contains(1) is False
+
+
+def test_delete_on_range():
+    """Test that the node selected is removed from the tree."""
+    from bst import Bst
+    new_bst = Bst()
+    for items in range(20):
+        new_bst.insert(items)
+    new_bst.delete(10)
+    assert new_bst.contains(10) is False
+
+
+def test_delete_on_complex_tree():
+    """Test that the selected node is deleted."""
+    from bst import Bst
+    nodes = [10, 9, 15, 2, 6, 12, 20, 1, 3]
+    new_bst = Bst()
+    for item in nodes:
+        new_bst.insert(item)
+    new_bst.delete(2)
+    assert new_bst.contains(2) is False
+
+
+def test_search():
+    """Test that the search returns a node connected to the selected value."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    new_bst.insert(1)
+    for item in new_bst.head._search():
+        assert isinstance(item, Node)
