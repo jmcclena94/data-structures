@@ -175,7 +175,7 @@ class Bst(object):
         item.parent.value = item.value
         item.parent = None
         item = None
-        for data in temp.in_order():
+        for data in temp.pre_order():
             self.insert(data)
 
     def _leaf_check_and_delete(self, item):
