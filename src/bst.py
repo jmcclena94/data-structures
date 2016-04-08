@@ -33,6 +33,29 @@ class Node(object):
             for item in self.right.pre_order():
                 yield item
 
+    def post_order(self):
+        """Yield a list of ordered nodes left, right, parent."""
+        if self.left:
+            for item in self.left.post_order():
+                yield item
+        if self.right:
+            for item in self.right.post_order():
+                yield item
+        yield self.value
+
+    def breadth_first(self):
+        """Yield a list of ordered nodes."""
+        if self.left:
+            yield self.left.value
+        if self.right:
+            yield self.right.value
+        if self.left:
+            for item in self.left.breadth_first():
+                yield item
+        if self.right:
+            for item in self.right.breadth_first():
+                yield item
+
 
 class Bst(object):
     """Create a binary search tree."""
@@ -161,7 +184,10 @@ class Bst(object):
                 for item in self.head.post_order():
                     yield item
         if traversal == 'breadth':
-            pass
+            yield self.head.value
+            if self.head:
+                for item in self.head.breadth_first():
+                    yield item
 
     # def pre_order(self):
     #     """Call in_order generator and yield the items in the tree."""
