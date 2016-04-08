@@ -13,6 +13,26 @@ class Node(object):
         self.right = None
         self.parent = None
 
+    def in_order(self):
+        """Yield a list of ordered nodes left, parent, right."""
+        if self.left:
+            for item in self.left.in_order():
+                yield item
+        yield self.value
+        if self.right:
+            for item in self.right.in_order():
+                yield item
+
+    def pre_order(self):
+        """Yield a list of ordered nodes parent, left, right."""
+        yield self.value
+        if self.left:
+            for item in self.left.pre_order():
+                yield item
+        if self.right:
+            for item in self.right.pre_order():
+                yield item
+
 
 class Bst(object):
     """Create a binary search tree."""
@@ -125,6 +145,26 @@ class Bst(object):
         total_balance = left_balance - right_balance
         self.head = temp
         return total_balance
+
+    def tree_traversal(self, traversal):
+        """Call in_order generator and yield the items in the tree."""
+        if traversal == 'in_order':
+            if self.head:
+                for item in self.head.in_order():
+                    yield item
+        if traversal == 'pre_order':
+            if self.head:
+                for item in self.head.pre_order():
+                    yield item
+        if traversal == 'post_order':
+            if self.head:
+                for item in self.head.post_order():
+                    yield item
+        if traversal == 'breadth':
+            pass
+
+    # def pre_order(self):
+    #     """Call in_order generator and yield the items in the tree."""
 
 
 # if __name__ == '__main__':
