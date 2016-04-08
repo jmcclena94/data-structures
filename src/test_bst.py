@@ -222,6 +222,16 @@ def test_delete():
     assert new_bst.contains(1) is False
 
 
+# def test_delete_on_tree_three_nodes():
+#     """Test that the node selected is removed from the tree."""
+#     from bst import Bst
+#     tree_list = []
+#     new_bst = Bst()
+#     for items in tree_list:
+#         insert(item)
+#     new_bst.delete(val)
+#     assert new_bst.contains(val) is False
+
 def test_delete_on_complex_tree():
     """Test that the selected node is deleted."""
     from bst import Bst
@@ -238,5 +248,5 @@ def test_search():
     from bst import Bst, Node
     new_bst = Bst()
     new_bst.insert(1)
-    for item in new_bst.head.search():
+    for item in new_bst.head._search():
         assert isinstance(item, Node)

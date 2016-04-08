@@ -1,6 +1,4 @@
 # coding=utf-8
-# import random
-import subprocess
 
 
 class Node(object):
@@ -56,26 +54,30 @@ class Node(object):
             for item in self.right.breadth_first():
                 yield item
 
-    def search(self):
+    def _search(self):
         """Yield a list of ordered nodes left, parent, right."""
         if self.left:
-            self.left.search()
+            for item in self.left._search():
+                yield item
         yield self
         if self.right:
-            self.right.search()
+            for item in self.right._search():
+                yield item
 
-    def delete(self):
-        """Delete instance of Node."""
-        if self.right:
-            self.value = self.right.value
-            self.right.delete()
-        elif self.left:
-            self.value = self.left.value
-            self.left.delete()
-        else:
-            if self.parent is not None:
-                self.parent.right = None
-                self.parent.left = None
+    # def _delete(self):
+    #     """Delete instance of Node."""
+    #     if self.right:
+    #         if self.right is None and self.left is None:
+    #             self.parent.right = None
+    #         self.value = self.right.value
+    #         self.right._delete()
+    #         # if self.right is None and self.left is None:
+    #         #     self.parent.right = None
+    #     else:
+    #         self.value = self.left.value
+    #         self.left._delete()
+    #         if self.right is None and self.left is None:
+    #             self.parent.left = None
 
 
 class Bst(object):
@@ -85,34 +87,6 @@ class Bst(object):
         """Init."""
         self.size = 0
         self.head = None
-
-    # def get_dot(self):
-    #     """Return tree with root 'self' as a dot graph for visualization."""
-    #     return "digraph G{\n%s}" % ("" if self.head is None else (
-    #         "\t%s;\n%s\n" % (
-    #             self.head,
-    #             "\n".join(self._get_dot())
-    #         )
-    #     ))
-
-    # def _get_dot(self):
-    #     """Recursively prepare a dot graph entry for this node."""
-    #     if self.left is not None:
-    #         yield "\t%s -> %s;" % (self.head, self.left.value)
-    #         for i in self.left._get_dot():
-    #             yield i
-    #     elif self.right is not None:
-    #         r = random.randint(0, 1e9)
-    #         yield "\tnull%s [shape=point];" % r
-    #         yield "\t%s -> null%s;" % (self.head, r)
-    #     if self.right is not None:
-    #         yield "\t%s -> %s;" % (self.head, self.right.value)
-    #         for i in self.right._get_dot():
-    #             yield i
-    #     elif self.left is not None:
-    #         r = random.randint(0, 1e9)
-    #         yield "\tnull%s [shape=point];" % r
-    #         yield "\t%s -> null%s;" % (self.head, r)
 
     def insert(self, val):
         """Insert node into bst."""
@@ -211,25 +185,41 @@ class Bst(object):
                     yield item
 
     def delete(self, val):
-        """Delete the node that has the value passed.""" 
+        """Delete the node that has the value passed."""
+        # import pdb; pdb.set_trace()
         if self.head:
-            for item in self.head.search():
-                if item.value == val and item == self.head:
-                    item.delete()
-                    self.head = None
-                elif item.value == val:
-                    item.delete()
+            for item in self.head._search():
+                if item.value == val:
+                    if item.right:
+                        temp_right = item.right
+                        item.value = item.right.value
+                        item.right.parent = None
+                        item.right = None
+                        for data in temp_right.in_order():
+                            self.insert(data)
+                    else:
+                        if item.left:
+                            temp_left = item.left
+                            item.value = item.left.value
+                            item.left.parent = None
+                            item.left = None
+                            for data in temp_left.in_order():
+                                self.insert(data)
+                        else:
+                            if item.parent is None:
+                                self.head = None
+                            else:
+                                if item.parent.right == item:
+                                    item.parent.right = None
+                                    item.parent = None
+                                else:
+                                    item.parent.left = None
+                                    item.parent = None
 
 
-    # def pre_order(self):
-    #     """Call in_order generator and yield the items in the tree."""
 
-
-# if __name__ == '__main__':
-    # x = range(10)
-    # bst = Bst()
-    # for i in x:
-    #     bst.insert(i)
-    # dot_graph = bst.get_dot()
-    # t = subprocess.Popen(["dot", "-Tpng"], stdin=subprocess.PIPE)
-    # t.communicate(dot_graph)
+                # if item.value == val and item == self.head:
+                #     item._delete()
+                #     self.head = None
+                # elif item.value == val:
+                #     item._delete()
