@@ -222,6 +222,17 @@ def test_delete():
     assert new_bst.contains(1) is False
 
 
+def test_delete_on_complex_tree():
+    """Test that the selected node is deleted."""
+    from bst import Bst
+    nodes = [10, 9, 15, 2, 6, 12, 20, 1, 3]
+    new_bst = Bst()
+    for item in nodes:
+        new_bst.insert(item)
+    new_bst.delete(2)
+    assert new_bst.contains(2) is False
+
+
 def test_search():
     """Test that the search returns a node connected to the selected value."""
     from bst import Bst, Node

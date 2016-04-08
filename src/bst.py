@@ -59,12 +59,10 @@ class Node(object):
     def search(self):
         """Yield a list of ordered nodes left, parent, right."""
         if self.left:
-            for item in self.left.in_order():
-                yield item
+            self.left.search()
         yield self
         if self.right:
-            for item in self.right.in_order():
-                yield item
+            self.right.search()
 
     def delete(self):
         """Delete instance of Node."""
@@ -213,7 +211,7 @@ class Bst(object):
                     yield item
 
     def delete(self, val):
-        """Delete the node that has the value passed."""
+        """Delete the node that has the value passed.""" 
         if self.head:
             for item in self.head.search():
                 if item.value == val and item == self.head:
