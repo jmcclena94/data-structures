@@ -56,6 +56,29 @@ class Node(object):
             for item in self.right.breadth_first():
                 yield item
 
+    def search(self):
+        """Yield a list of ordered nodes left, parent, right."""
+        if self.left:
+            for item in self.left.in_order():
+                yield item
+        yield self
+        if self.right:
+            for item in self.right.in_order():
+                yield item
+
+    def delete(self):
+        """Delete instance of Node."""
+        if self.right:
+            self.value = self.right.value
+            self.right.delete()
+        elif self.left:
+            self.value = self.left.value
+            self.left.delete()
+        else:
+            if self.parent is not None:
+                self.parent.right = None
+                self.parent.left = None
+
 
 class Bst(object):
     """Create a binary search tree."""
@@ -188,6 +211,17 @@ class Bst(object):
             if self.head:
                 for item in self.head.breadth_first():
                     yield item
+
+    def delete(self, val):
+        """Delete the node that has the value passed."""
+        if self.head:
+            for item in self.head.search():
+                if item.value == val and item == self.head:
+                    item.delete()
+                    self.head = None
+                elif item.value == val:
+                    item.delete()
+
 
     # def pre_order(self):
     #     """Call in_order generator and yield the items in the tree."""

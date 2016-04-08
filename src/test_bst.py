@@ -212,3 +212,20 @@ def test_breadth_first():
         results.append(item)
     assert results == [10, 8, 15, 7, 9, 13, 20]
 
+
+def test_delete():
+    """Test that the selected node is deleted."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(1)
+    new_bst.delete(1)
+    assert new_bst.contains(1) is False
+
+
+def test_search():
+    """Test that the search returns a node connected to the selected value."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    new_bst.insert(1)
+    for item in new_bst.head.search():
+        assert isinstance(item, Node)
