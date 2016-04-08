@@ -64,21 +64,6 @@ class Node(object):
             for item in self.right._search():
                 yield item
 
-    # def _delete(self):
-    #     """Delete instance of Node."""
-    #     if self.right:
-    #         if self.right is None and self.left is None:
-    #             self.parent.right = None
-    #         self.value = self.right.value
-    #         self.right._delete()
-    #         # if self.right is None and self.left is None:
-    #         #     self.parent.right = None
-    #     else:
-    #         self.value = self.left.value
-    #         self.left._delete()
-    #         if self.right is None and self.left is None:
-    #             self.parent.left = None
-
 
 class Bst(object):
     """Create a binary search tree."""
@@ -184,42 +169,36 @@ class Bst(object):
                 for item in self.head.breadth_first():
                     yield item
 
+    def _deal_with_child(self, item):
+        """Insert and delete child nodes."""
+        temp = item
+        item.parent.value = item.value
+        item.parent = None
+        item = None
+        for data in temp.in_order():
+            self.insert(data)
+
+    def _leaf_check_and_delete(self, item):
+        """Severe parent child connection for leaf."""
+        if item.parent.right == item:
+            item.parent.right = None
+            item.parent = None
+        else:
+            item.parent.left = None
+            item.parent = None
+
     def delete(self, val):
         """Delete the node that has the value passed."""
-        # import pdb; pdb.set_trace()
         if self.head:
             for item in self.head._search():
                 if item.value == val:
                     if item.right:
-                        temp_right = item.right
-                        item.value = item.right.value
-                        item.right.parent = None
-                        item.right = None
-                        for data in temp_right.in_order():
-                            self.insert(data)
+                        self._deal_with_child(item.right)
                     else:
                         if item.left:
-                            temp_left = item.left
-                            item.value = item.left.value
-                            item.left.parent = None
-                            item.left = None
-                            for data in temp_left.in_order():
-                                self.insert(data)
+                            self._deal_with_child(item.left)
                         else:
                             if item.parent is None:
                                 self.head = None
                             else:
-                                if item.parent.right == item:
-                                    item.parent.right = None
-                                    item.parent = None
-                                else:
-                                    item.parent.left = None
-                                    item.parent = None
-
-
-
-                # if item.value == val and item == self.head:
-                #     item._delete()
-                #     self.head = None
-                # elif item.value == val:
-                #     item._delete()
+                                self._leaf_check_and_delete(item)
