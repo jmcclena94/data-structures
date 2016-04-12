@@ -80,9 +80,12 @@ class Node(object):
         self.right.right.parent = self.right
         self.right.right.left = None
 
-    # def left_rotation(self):
-    #     """Rotate three node structure counter clockwise."""
-    #     self.left.parent
+    def left_rotation(self):
+        """Rotate three node structure counter clockwise."""
+        self.right.parent = self.parent
+        self.parent = self.right
+        self.right.left = self
+        self.right = None
 
     def right_rotation(self):
         """Rotate three node structure clockwise."""
