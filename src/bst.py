@@ -82,9 +82,14 @@ class Node(object):
 
     # def left_rotation(self):
     #     """Rotate three node structure counter clockwise."""
+    #     self.left.parent
 
-    # def right_rotation(self):
-    #     """Rotate three node structure clockwise."""
+    def right_rotation(self):
+        """Rotate three node structure clockwise."""
+        self.left.parent = self.parent
+        self.parent = self.left
+        self.left.right = self
+        self.left = None
 
     def depth(self):
         """Find the depth of the tree from the node."""
