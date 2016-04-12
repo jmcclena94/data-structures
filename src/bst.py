@@ -72,8 +72,13 @@ class Node(object):
         self.left.left.parent = self.left
         self.left.left.right = None
 
-    # def right_left_converstion(self):
-    #     """Convert right-left case to a right-right case."""
+    def right_left_conversion(self):
+        """Convert right-left case to a right-right case."""
+        self.right = self.right.left
+        self.right.right = self.right.parent
+        self.right.parent = self
+        self.right.right.parent = self.right
+        self.right.right.left = None
 
     # def left_rotation(self):
     #     """Rotate three node structure counter clockwise."""

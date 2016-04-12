@@ -271,6 +271,25 @@ def test_left_right_conversion():
     assert new_bst.head.left.parent == node1
 
 
+def test_right_left_conversion():
+    """Test that given three nodes in a right-left state converts to right-right."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    node1 = Node(10)
+    node2 = Node(15)
+    node3 = Node(12)
+    new_bst.head = node1
+    node1.right = node2
+    node2.parent = node1
+    node2.left = node3
+    node3.parent = node2
+    new_bst.head.right_left_conversion()
+    assert new_bst.head.right == node3
+    assert new_bst.head.right.right == node2
+    assert new_bst.head.right.right.parent == node3
+    assert new_bst.head.right.parent == node1
+
+
 def test_depth_from_node_three_nodes():
     """Test the depth of the tree from a node."""
     from bst import Bst
