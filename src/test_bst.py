@@ -250,3 +250,35 @@ def test_search():
     new_bst.insert(1)
     for item in new_bst.head._search():
         assert isinstance(item, Node)
+
+
+def test_left_right_conversion():
+    """Test that given three nodes in a left-right state converts to left-left."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    node1 = Node(15)
+    node2 = Node(10)
+    node3 = Node(12)
+    new_bst.head = node1
+    node1.left = node2
+    node2.parent = node1
+    node2.right = node3
+    node3.parent = node2
+    new_bst.head.left_right_conversion()
+    assert new_bst.head.left == node3
+    assert new_bst.head.left.left == node2
+    assert new_bst.head.left.left.parent == node3
+    assert new_bst.head.left.parent == node1
+
+
+def test_depth_from_node_three_nodes():
+    """Test the depth of the tree from a node."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(10)
+    new_bst.insert(15)
+    new_bst.insert(20)
+    # fails until balancing function is created
+    assert new_bst.head.depth() == 1
+    assert new_bst.head.right.depth() == 0
+    assert new_bst.head.left.depth() == 0

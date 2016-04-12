@@ -64,6 +64,47 @@ class Node(object):
             for item in self.right._search():
                 yield item
 
+    def left_right_conversion(self):
+        """Convert left-right case to a left-left case."""
+        self.left = self.left.right
+        self.left.left = self.left.parent
+        self.left.parent = self
+        self.left.left.parent = self.left
+        self.left.left.right = None
+
+    # def right_left_converstion(self):
+    #     """Convert right-left case to a right-right case."""
+
+    # def left_rotation(self):
+    #     """Rotate three node structure counter clockwise."""
+
+    # def right_rotation(self):
+    #     """Rotate three node structure clockwise."""
+
+    def depth(self):
+        """Find the depth of the tree from the node."""
+        # if self.head is None:
+        #     return 0
+        to_visit = [self]
+        depths_visited = [1]
+        tree_depth = 0
+        while to_visit:
+            current_node = to_visit.pop()
+            current_dep = depths_visited.pop()
+            if tree_depth < current_dep:
+                tree_depth = current_dep
+            if current_node.left is not None:
+                to_visit.append(current_node.left)
+                depths_visited.append(current_dep + 1)
+            if current_node.right is not None:
+                to_visit.append(current_node.right)
+                depths_visited.append(current_dep + 1)
+        return tree_depth
+
+    # def check_balance(self):
+    #     """Check balance of the tree based on the inserted Node."""
+        # need to call this in the insert method of Bst.
+
 
 class Bst(object):
     """Create a binary search tree."""
