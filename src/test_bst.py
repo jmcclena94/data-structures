@@ -252,7 +252,7 @@ def test_search():
         assert isinstance(item, Node)
 
 
-def test_left_right_conversion():
+def test_left_right_conversion_three_nodes():
     """Test that given three nodes in a left-right state converts to left-left."""
     from bst import Bst, Node
     new_bst = Bst()
@@ -271,7 +271,34 @@ def test_left_right_conversion():
     assert new_bst.head.left.parent == node1
 
 
-def test_right_left_conversion():
+def test_left_right_conversion_six_nodes():
+    """Test that given six nodes in a left-right state converts to left-left."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    node1 = Node(10)
+    node2 = Node(15)
+    node3 = Node(5)
+    node4 = Node(3)
+    node5 = Node(8)
+    node6 = Node(9)
+    new_bst.head = node1
+    node1.left = node3
+    node3.parent = node1
+    node3.left = node4
+    node4.parent = node3
+    node3.right = node5
+    node5.parent = node3
+    node5.right = node6
+    node6.parent = node5
+    node1.right = node2
+    node2.parent = node1
+    new_bst.head.left_right_conversion()
+    assert new_bst.head.left == node5
+    assert new_bst.head.left.right == node6
+    assert new_bst.head.left.left == node3
+
+
+def test_right_left_conversion_three_nodes():
     """Test that given three nodes in a right-left state converts to right-right."""
     from bst import Bst, Node
     new_bst = Bst()
@@ -290,7 +317,34 @@ def test_right_left_conversion():
     assert new_bst.head.right.parent == node1
 
 
-def test_right_rotation():
+def test_right_left_conversion_six_nodes():
+    """Test that given six nodes in a left-right state converts to left-left."""
+    from bst import Bst, Node
+    new_bst = Bst()
+    node1 = Node(10)
+    node2 = Node(5)
+    node3 = Node(15)
+    node4 = Node(20)
+    node5 = Node(14)
+    node6 = Node(13)
+    new_bst.head = node1
+    node1.left = node2
+    node2.parent = node1
+    node1.right = node3
+    node3.parent = node1
+    node3.right = node4
+    node4.parent = node3
+    node3.left = node5
+    node5.parent = node3
+    node5.left = node6
+    node6.parent = node5
+    new_bst.head.right_left_conversion()
+    assert new_bst.head.right == node5
+    assert new_bst.head.right.right == node3
+    assert new_bst.head.right.right.right == node4
+
+
+def test_right_rotation_three_nodes():
     """Test that a left-left becomes balanced."""
     from bst import Bst, Node
     new_bst = Bst()
@@ -309,7 +363,7 @@ def test_right_rotation():
     assert node2.right.parent == node2
 
 
-def test_left_rotation():
+def test_left_rotation_three_nodes():
     """Test that a right-right becomes balanced."""
     from bst import Bst, Node
     new_bst = Bst()
@@ -339,3 +393,23 @@ def test_depth_from_node_three_nodes():
     assert new_bst.head.depth() == 1
     assert new_bst.head.right.depth() == 0
     assert new_bst.head.left.depth() == 0
+
+
+def test_check_balance_right_right():
+    """Test for balance of tree from selected Node."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(10)
+    new_bst.insert(15)
+    new_bst.insert(20)
+    assert new_bst.balance() == 0
+
+
+def test_check_balance_left_left():
+    """Test for balance of tree from selected Node."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(15)
+    new_bst.insert(12)
+    new_bst.insert(10)
+    assert new_bst.balance == 0
