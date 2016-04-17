@@ -64,6 +64,67 @@ class Node(object):
             for item in self.right._search():
                 yield item
 
+    def left_right_conversion(self):
+        """Convert left-right case to a left-left case."""
+        self.left = self.left.right
+        temp = self.left.left
+        self.left.left = self.left.parent
+        self.left.parent = self
+        self.left.left.parent = self.left
+        self.left.left.right = temp
+
+    def right_left_conversion(self):
+        """Convert right-left case to a right-right case."""
+        self.right = self.right.left
+        temp = self.right.right
+        self.right.right = self.right.parent
+        self.right.parent = self
+        self.right.right.parent = self.right
+        self.right.right.left = temp
+
+    def left_rotation(self):
+        """Rotate three node structure counter clockwise."""
+        self.right.parent = self.parent
+        self.parent = self.right
+        temp = self.right.left
+        self.right.left = self
+        self.right = temp
+
+    def right_rotation(self):
+        """Rotate three node structure clockwise."""
+        self.left.parent = self.parent
+        self.parent = self.left
+        temp = self.left.right
+        self.left.right = self
+        self.left = temp
+
+    def depth(self):
+        """Find the depth of the tree from the node."""
+        # if self.head is None:
+        #     return 0
+        to_visit = [self]
+        depths_visited = [1]
+        tree_depth = 0
+        while to_visit:
+            current_node = to_visit.pop()
+            current_dep = depths_visited.pop()
+            if tree_depth < current_dep:
+                tree_depth = current_dep
+            if current_node.left is not None:
+                to_visit.append(current_node.left)
+                depths_visited.append(current_dep + 1)
+            if current_node.right is not None:
+                to_visit.append(current_node.right)
+                depths_visited.append(current_dep + 1)
+        return tree_depth
+
+    def check_balance(self):
+        """Check balance of the tree based on the inserted Node."""
+        # need to call this in the insert method of Bst.
+        right_depth = self.right.depth()
+        left_depth = self.left.depth()
+
+
 
 class Bst(object):
     """Create a binary search tree."""
@@ -173,10 +234,15 @@ class Bst(object):
         """Insert and delete child nodes."""
         temp = item
         item.parent.value = item.value
+        if item.parent.right == item:
+            item.parent.right = None
+        else:
+            item.parent.left = None
         item.parent = None
         item = None
         for data in temp.pre_order():
             self.insert(data)
+            self.size -= 1
 
     def _leaf_check_and_delete(self, item):
         """Severe parent child connection for leaf."""
@@ -190,6 +256,7 @@ class Bst(object):
     def delete(self, val):
         """Delete the node that has the value passed."""
         if self.head:
+            self.size -= 1
             for item in self.head._search():
                 if item.value == val:
                     if item.right:
