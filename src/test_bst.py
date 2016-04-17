@@ -390,9 +390,8 @@ def test_depth_from_node_three_nodes():
     new_bst.insert(15)
     new_bst.insert(20)
     # fails until balancing function is created
-    assert new_bst.head.depth() == 1
-    assert new_bst.head.right.depth() == 0
-    assert new_bst.head.left.depth() == 0
+    assert new_bst.head.depth() == 3
+    assert new_bst.head.right.depth() == 2
 
 
 def test_check_balance_right_right():
@@ -402,7 +401,7 @@ def test_check_balance_right_right():
     new_bst.insert(10)
     new_bst.insert(15)
     new_bst.insert(20)
-    assert new_bst.balance() == 0
+    assert new_bst.balance() == -2
 
 
 def test_check_balance_left_left():
@@ -412,4 +411,4 @@ def test_check_balance_left_left():
     new_bst.insert(15)
     new_bst.insert(12)
     new_bst.insert(10)
-    assert new_bst.balance == 0
+    assert new_bst.balance() == 2

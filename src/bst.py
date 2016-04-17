@@ -234,6 +234,10 @@ class Bst(object):
         """Insert and delete child nodes."""
         temp = item
         item.parent.value = item.value
+        if item.parent.right == item:
+            item.parent.right = None
+        else:
+            item.parent.left = None
         item.parent = None
         item = None
         for data in temp.pre_order():
@@ -251,6 +255,7 @@ class Bst(object):
     def delete(self, val):
         """Delete the node that has the value passed."""
         if self.head:
+            self.size -= 1
             for item in self.head._search():
                 if item.value == val:
                     if item.right:
