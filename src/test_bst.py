@@ -37,9 +37,9 @@ def test_insert_three_values():
     new_bst.insert(3)
     new_bst.insert(5)
     new_bst.insert(4)
-    assert new_bst.head.value == 3
+    assert new_bst.head.value == 4
     assert new_bst.head.right.value == 5
-    assert new_bst.head.right.left.value == 4
+    assert new_bst.head.left.value == 3
 
 
 def test_insert_value_already_exists():
@@ -454,6 +454,7 @@ def test_left_rotation_three_nodes():
     node2.right = node3
     node3.parent = node2
     new_bst.head.left_rotation()
+    assert new_bst.head == node2
     assert node2.parent is None
     assert node2.left == node1
     assert node2.right == node3

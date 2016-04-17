@@ -64,23 +64,23 @@ class Node(object):
             for item in self.right._search():
                 yield item
 
-    # def left_right_conversion(self):
-    #     """Convert left-right case to a left-left case."""
-    #     self.left = self.left.right
-    #     temp = self.left.left
-    #     self.left.left = self.left.parent
-    #     self.left.parent = self
-    #     self.left.left.parent = self.left
-    #     self.left.left.right = temp
-    #
-    # def right_left_conversion(self):
-    #     """Convert right-left case to a right-right case."""
-    #     self.right = self.right.left
-    #     temp = self.right.right
-    #     self.right.right = self.right.parent
-    #     self.right.parent = self
-    #     self.right.right.parent = self.right
-    #     self.right.right.left = temp
+    def left_right_conversion(self):
+        """Convert left-right case to a left-left case."""
+        self.left = self.left.right
+        temp = self.left.left
+        self.left.left = self.left.parent
+        self.left.parent = self
+        self.left.left.parent = self.left
+        self.left.left.right = temp
+
+    def right_left_conversion(self):
+        """Convert right-left case to a right-right case."""
+        self.right = self.right.left
+        temp = self.right.right
+        self.right.right = self.right.parent
+        self.right.parent = self
+        self.right.right.parent = self.right
+        self.right.right.left = temp
 
     def left_rotation(self):
         """Rotate three node structure counter clockwise."""
@@ -89,6 +89,7 @@ class Node(object):
         temp = self.right.left
         self.right.left = self
         self.right = temp
+        # self.parent.parent.left = self.parent
 
     def right_rotation(self):
         """Rotate three node structure clockwise."""
@@ -97,6 +98,7 @@ class Node(object):
         temp = self.left.right
         self.left.right = self
         self.left = temp
+        # self.parent.parent.right = self.parent
 
     def depth(self):
         """Find the depth of the tree from the node."""
@@ -120,7 +122,6 @@ class Node(object):
 
     def check_balance(self):
         """Check balance of the tree based on the inserted Node."""
-        # need to call this in the insert method of Bst.
         try:
             right_depth = self.right.depth()
         except:
@@ -131,7 +132,6 @@ class Node(object):
             left_depth = 0
         balance = left_depth - right_depth
         return balance
-
 
 
 class Bst(object):
@@ -167,7 +167,30 @@ class Bst(object):
                     new_node.parent = current_node
                     flag = False
                 else:
-                    break
+                    flag = False
+        self.self_balance(new_node)
+
+    def self_balance(self, node):
+        """Auto balance the tree after insertion."""
+        parent_node = node.parent
+        current_node = node
+        while parent_node:
+            parent_balance = parent_node.check_balance()
+            if parent_balance > 1:
+                if parent_node.left.check_balance() < 0:
+                    parent_node.left_right_conversion()
+                    parent_node.right_rotation()
+                else:
+                    parent_node.right_rotation()
+            elif parent_balance < -1:
+                if parent_node.right.check_balance() > 0:
+                    parent_node.right_left_conversion()
+                    parent_node.left_rotation()
+                else:
+                    parent_node.left_rotation()
+            current_node = parent_node
+            parent_node = parent_node.parent
+        self.head = current_node
 
     def contains(self, val):
         """Return true or false if the value exists or not."""
