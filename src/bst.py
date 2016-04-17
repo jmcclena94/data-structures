@@ -85,6 +85,10 @@ class Node(object):
     def left_rotation(self):
         """Rotate three node structure counter clockwise."""
         self.right.parent = self.parent
+        try:
+            self.parent.right = self.right
+        except AttributeError:
+            pass
         self.parent = self.right
         temp = self.right.left
         self.right.left = self
@@ -94,6 +98,10 @@ class Node(object):
     def right_rotation(self):
         """Rotate three node structure clockwise."""
         self.left.parent = self.parent
+        try:
+            self.parent.left = self.left
+        except AttributeError:
+            pass
         self.parent = self.left
         temp = self.left.right
         self.left.right = self
@@ -183,6 +191,7 @@ class Bst(object):
                 else:
                     parent_node.right_rotation()
             elif parent_balance < -1:
+                # import pdb; pdb.set_trace()
                 if parent_node.right.check_balance() > 0:
                     parent_node.right_left_conversion()
                     parent_node.left_rotation()
