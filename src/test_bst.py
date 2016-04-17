@@ -220,6 +220,8 @@ def test_delete():
     new_bst.insert(1)
     new_bst.delete(1)
     assert new_bst.contains(1) is False
+    assert new_bst.head is None
+    assert new_bst.size == 0
 
 
 def test_delete_on_range():
@@ -230,6 +232,74 @@ def test_delete_on_range():
         new_bst.insert(items)
     new_bst.delete(10)
     assert new_bst.contains(10) is False
+    assert new_bst.size == 19
+
+
+def test_delete_on_small_range():
+    """Test that the node selected is removed from the tree."""
+    from bst import Bst
+    new_bst = Bst()
+    for items in range(5):
+        new_bst.insert(items)
+    new_bst.delete(1)
+    assert new_bst.contains(1) is False
+    assert new_bst.size == 4
+    assert new_bst.head.right.value == 2
+    assert new_bst.head.right.right.value == 3
+    assert new_bst.head.right.right.right.value == 4
+    assert new_bst.head.right.right.right.right is None
+    assert new_bst.head.left is None
+
+
+def test_edge_cases_delete_tree():
+    """Test deletion on tree from EdgeCases example tree."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(10)
+    new_bst.insert(20)
+    new_bst.insert(5)
+    new_bst.delete(10)
+    assert new_bst.contains(10) is False
+    assert new_bst.size == 2
+    assert new_bst.head.value == 20
+    assert new_bst.head.right is None
+    assert new_bst.head.left.value == 5
+
+
+def test_off_balance_delete_tree():
+    """Test deletion on tree from complex tree."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(10)
+    new_bst.insert(20)
+    new_bst.insert(5)
+    new_bst.insert(15)
+    new_bst.insert(25)
+    new_bst.delete(10)
+    assert new_bst.contains(10) is False
+    assert new_bst.size == 4
+    assert new_bst.head.value == 20
+    assert new_bst.head.right.value == 25
+    assert new_bst.head.left.value == 5
+    assert new_bst.head.left.right.value == 15
+
+
+def test_off_balance_delete_tree_non_head():
+    """Test deletion on tree from complex tree."""
+    from bst import Bst
+    new_bst = Bst()
+    new_bst.insert(10)
+    new_bst.insert(20)
+    new_bst.insert(5)
+    new_bst.insert(15)
+    new_bst.insert(25)
+    new_bst.delete(20)
+    assert new_bst.contains(20) is False
+    assert new_bst.size == 4
+    assert new_bst.head.value == 10
+    assert new_bst.head.right.value == 25
+    assert new_bst.head.left.value == 5
+    assert new_bst.head.right.left.value == 15
 
 
 def test_delete_on_complex_tree():

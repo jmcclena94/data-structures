@@ -242,6 +242,7 @@ class Bst(object):
         item = None
         for data in temp.pre_order():
             self.insert(data)
+            self.size -= 1
 
     def _leaf_check_and_delete(self, item):
         """Severe parent child connection for leaf."""
