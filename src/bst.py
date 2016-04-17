@@ -64,23 +64,23 @@ class Node(object):
             for item in self.right._search():
                 yield item
 
-    def left_right_conversion(self):
-        """Convert left-right case to a left-left case."""
-        self.left = self.left.right
-        temp = self.left.left
-        self.left.left = self.left.parent
-        self.left.parent = self
-        self.left.left.parent = self.left
-        self.left.left.right = temp
-
-    def right_left_conversion(self):
-        """Convert right-left case to a right-right case."""
-        self.right = self.right.left
-        temp = self.right.right
-        self.right.right = self.right.parent
-        self.right.parent = self
-        self.right.right.parent = self.right
-        self.right.right.left = temp
+    # def left_right_conversion(self):
+    #     """Convert left-right case to a left-left case."""
+    #     self.left = self.left.right
+    #     temp = self.left.left
+    #     self.left.left = self.left.parent
+    #     self.left.parent = self
+    #     self.left.left.parent = self.left
+    #     self.left.left.right = temp
+    #
+    # def right_left_conversion(self):
+    #     """Convert right-left case to a right-right case."""
+    #     self.right = self.right.left
+    #     temp = self.right.right
+    #     self.right.right = self.right.parent
+    #     self.right.parent = self
+    #     self.right.right.parent = self.right
+    #     self.right.right.left = temp
 
     def left_rotation(self):
         """Rotate three node structure counter clockwise."""
@@ -121,8 +121,16 @@ class Node(object):
     def check_balance(self):
         """Check balance of the tree based on the inserted Node."""
         # need to call this in the insert method of Bst.
-        right_depth = self.right.depth()
-        left_depth = self.left.depth()
+        try:
+            right_depth = self.right.depth()
+        except:
+            right_depth = 0
+        try:
+            left_depth = self.left.depth()
+        except:
+            left_depth = 0
+        balance = left_depth - right_depth
+        return balance
 
 
 

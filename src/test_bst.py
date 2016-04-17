@@ -322,96 +322,104 @@ def test_search():
         assert isinstance(item, Node)
 
 
-def test_left_right_conversion_three_nodes():
-    """Test that given three nodes in a left-right state converts to left-left."""
-    from bst import Bst, Node
-    new_bst = Bst()
-    node1 = Node(15)
-    node2 = Node(10)
-    node3 = Node(12)
-    new_bst.head = node1
-    node1.left = node2
-    node2.parent = node1
-    node2.right = node3
-    node3.parent = node2
-    new_bst.head.left_right_conversion()
-    assert new_bst.head.left == node3
-    assert new_bst.head.left.left == node2
-    assert new_bst.head.left.left.parent == node3
-    assert new_bst.head.left.parent == node1
-
-
-def test_left_right_conversion_six_nodes():
-    """Test that given six nodes in a left-right state converts to left-left."""
-    from bst import Bst, Node
-    new_bst = Bst()
-    node1 = Node(10)
-    node2 = Node(15)
-    node3 = Node(5)
-    node4 = Node(3)
-    node5 = Node(8)
-    node6 = Node(9)
-    new_bst.head = node1
-    node1.left = node3
-    node3.parent = node1
-    node3.left = node4
-    node4.parent = node3
-    node3.right = node5
-    node5.parent = node3
-    node5.right = node6
-    node6.parent = node5
-    node1.right = node2
-    node2.parent = node1
-    new_bst.head.left_right_conversion()
-    assert new_bst.head.left == node5
-    assert new_bst.head.left.right == node6
-    assert new_bst.head.left.left == node3
-
-
-def test_right_left_conversion_three_nodes():
-    """Test that given three nodes in a right-left state converts to right-right."""
-    from bst import Bst, Node
-    new_bst = Bst()
-    node1 = Node(10)
-    node2 = Node(15)
-    node3 = Node(12)
-    new_bst.head = node1
-    node1.right = node2
-    node2.parent = node1
-    node2.left = node3
-    node3.parent = node2
-    new_bst.head.right_left_conversion()
-    assert new_bst.head.right == node3
-    assert new_bst.head.right.right == node2
-    assert new_bst.head.right.right.parent == node3
-    assert new_bst.head.right.parent == node1
-
-
-def test_right_left_conversion_six_nodes():
-    """Test that given six nodes in a left-right state converts to left-left."""
-    from bst import Bst, Node
-    new_bst = Bst()
-    node1 = Node(10)
-    node2 = Node(5)
-    node3 = Node(15)
-    node4 = Node(20)
-    node5 = Node(14)
-    node6 = Node(13)
-    new_bst.head = node1
-    node1.left = node2
-    node2.parent = node1
-    node1.right = node3
-    node3.parent = node1
-    node3.right = node4
-    node4.parent = node3
-    node3.left = node5
-    node5.parent = node3
-    node5.left = node6
-    node6.parent = node5
-    new_bst.head.right_left_conversion()
-    assert new_bst.head.right == node5
-    assert new_bst.head.right.right == node3
-    assert new_bst.head.right.right.right == node4
+# def test_left_right_conversion_three_nodes():
+#     """
+#     Test that given three nodes in a left-right state converts to left-left.
+#     """
+#     from bst import Bst, Node
+#     new_bst = Bst()
+#     node1 = Node(15)
+#     node2 = Node(10)
+#     node3 = Node(12)
+#     new_bst.head = node1
+#     node1.left = node2
+#     node2.parent = node1
+#     node2.right = node3
+#     node3.parent = node2
+#     new_bst.head.left_right_conversion()
+#     assert new_bst.head.left == node3
+#     assert new_bst.head.left.left == node2
+#     assert new_bst.head.left.left.parent == node3
+#     assert new_bst.head.left.parent == node1
+#
+#
+# def test_left_right_conversion_six_nodes():
+#     """
+#     Test that given six nodes in a left-right state converts to left-left.
+#     """
+#     from bst import Bst, Node
+#     new_bst = Bst()
+#     node1 = Node(10)
+#     node2 = Node(15)
+#     node3 = Node(5)
+#     node4 = Node(3)
+#     node5 = Node(8)
+#     node6 = Node(9)
+#     new_bst.head = node1
+#     node1.left = node3
+#     node3.parent = node1
+#     node3.left = node4
+#     node4.parent = node3
+#     node3.right = node5
+#     node5.parent = node3
+#     node5.right = node6
+#     node6.parent = node5
+#     node1.right = node2
+#     node2.parent = node1
+#     new_bst.head.left_right_conversion()
+#     assert new_bst.head.left == node5
+#     assert new_bst.head.left.right == node6
+#     assert new_bst.head.left.left == node3
+#
+#
+# def test_right_left_conversion_three_nodes():
+#     """
+#     Test that given three nodes in a right-left state converts to right-right.
+#     """
+#     from bst import Bst, Node
+#     new_bst = Bst()
+#     node1 = Node(10)
+#     node2 = Node(15)
+#     node3 = Node(12)
+#     new_bst.head = node1
+#     node1.right = node2
+#     node2.parent = node1
+#     node2.left = node3
+#     node3.parent = node2
+#     new_bst.head.right_left_conversion()
+#     assert new_bst.head.right == node3
+#     assert new_bst.head.right.right == node2
+#     assert new_bst.head.right.right.parent == node3
+#     assert new_bst.head.right.parent == node1
+#
+#
+# def test_right_left_conversion_six_nodes():
+#     """
+#     Test that given six nodes in a left-right state converts to left-left.
+#     """
+#     from bst import Bst, Node
+#     new_bst = Bst()
+#     node1 = Node(10)
+#     node2 = Node(5)
+#     node3 = Node(15)
+#     node4 = Node(20)
+#     node5 = Node(14)
+#     node6 = Node(13)
+#     new_bst.head = node1
+#     node1.left = node2
+#     node2.parent = node1
+#     node1.right = node3
+#     node3.parent = node1
+#     node3.right = node4
+#     node4.parent = node3
+#     node3.left = node5
+#     node5.parent = node3
+#     node5.left = node6
+#     node6.parent = node5
+#     new_bst.head.right_left_conversion()
+#     assert new_bst.head.right == node5
+#     assert new_bst.head.right.right == node3
+#     assert new_bst.head.right.right.right == node4
 
 
 def test_right_rotation_three_nodes():
@@ -471,7 +479,9 @@ def test_check_balance_right_right():
     new_bst.insert(10)
     new_bst.insert(15)
     new_bst.insert(20)
-    assert new_bst.balance() == -2
+    assert new_bst.head.check_balance() == -2
+    assert new_bst.head.right.check_balance() == -1
+    assert new_bst.head.right.right.check_balance() == 0
 
 
 def test_check_balance_left_left():
@@ -481,4 +491,6 @@ def test_check_balance_left_left():
     new_bst.insert(15)
     new_bst.insert(12)
     new_bst.insert(10)
-    assert new_bst.balance() == 2
+    assert new_bst.head.check_balance() == 2
+    assert new_bst.head.left.check_balance() == 1
+    assert new_bst.head.left.left.check_balance() == 0
