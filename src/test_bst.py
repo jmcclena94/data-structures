@@ -164,7 +164,16 @@ def test_balance_equal_complex():
     r2 = range(10, 14)
     for i in r2:
         new_bst.insert(i)
-    assert new_bst.balance() == 0
+    assert new_bst.balance() == -1
+    assert new_bst.head.value == 4
+    assert new_bst.head.right.value == 10
+    assert new_bst.head.right.left.value == 5
+    assert new_bst.head.right.right.value == 12
+    assert new_bst.head.right.right.left.value == 11
+    assert new_bst.head.right.right.right.value == 13
+    assert new_bst.head.left.value == 2
+    assert new_bst.head.left.left.value == 1
+    assert new_bst.head.left.right.value == 3
 
 
 def test_in_order():
@@ -254,11 +263,10 @@ def test_delete_on_small_range():
     new_bst.delete(1)
     assert new_bst.contains(1) is False
     assert new_bst.size == 4
-    assert new_bst.head.right.value == 2
-    assert new_bst.head.right.right.value == 3
-    assert new_bst.head.right.right.right.value == 4
-    assert new_bst.head.right.right.right.right is None
-    assert new_bst.head.left is None
+    assert new_bst.head.value == 2
+    assert new_bst.head.left.value == 0
+    assert new_bst.head.right.value == 3
+    assert new_bst.head.right.right.value == 4
 
 
 def test_edge_cases_delete_tree():
@@ -464,7 +472,6 @@ def test_left_rotation_three_nodes():
     node2.right = node3
     node3.parent = node2
     new_bst.head.left_rotation()
-    assert new_bst.head == node2
     assert node2.parent is None
     assert node2.left == node1
     assert node2.right == node3
@@ -479,8 +486,8 @@ def test_depth_from_node_three_nodes():
     new_bst.insert(15)
     new_bst.insert(20)
     # fails until balancing function is created
-    assert new_bst.head.depth() == 3
-    assert new_bst.head.right.depth() == 2
+    assert new_bst.head.depth() == 2
+    assert new_bst.head.right.depth() == 1
 
 
 def test_check_balance_right_right():
@@ -490,9 +497,9 @@ def test_check_balance_right_right():
     new_bst.insert(10)
     new_bst.insert(15)
     new_bst.insert(20)
-    assert new_bst.head.check_balance() == -2
-    assert new_bst.head.right.check_balance() == -1
-    assert new_bst.head.right.right.check_balance() == 0
+    assert new_bst.head.check_balance() == 0
+    assert new_bst.head.right.check_balance() == 0
+    assert new_bst.head.left.check_balance() == 0
 
 
 def test_check_balance_left_left():
@@ -502,6 +509,6 @@ def test_check_balance_left_left():
     new_bst.insert(15)
     new_bst.insert(12)
     new_bst.insert(10)
-    assert new_bst.head.check_balance() == 2
-    assert new_bst.head.left.check_balance() == 1
-    assert new_bst.head.left.left.check_balance() == 0
+    assert new_bst.head.check_balance() == 0
+    assert new_bst.head.left.check_balance() == 0
+    assert new_bst.head.right.check_balance() == 0
