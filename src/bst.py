@@ -85,6 +85,10 @@ class Node(object):
     def left_rotation(self):
         """Rotate three node structure counter clockwise."""
         self.right.parent = self.parent
+        try:
+            self.parent.right = self.right
+        except AttributeError:
+            pass
         self.parent = self.right
         temp = self.right.left
         self.right.left = self
@@ -93,6 +97,10 @@ class Node(object):
     def right_rotation(self):
         """Rotate three node structure clockwise."""
         self.left.parent = self.parent
+        try:
+            self.parent.left = self.left
+        except AttributeError:
+            pass
         self.parent = self.left
         temp = self.left.right
         self.left.right = self
@@ -100,8 +108,6 @@ class Node(object):
 
     def depth(self):
         """Find the depth of the tree from the node."""
-        # if self.head is None:
-        #     return 0
         to_visit = [self]
         depths_visited = [1]
         tree_depth = 0
@@ -120,10 +126,16 @@ class Node(object):
 
     def check_balance(self):
         """Check balance of the tree based on the inserted Node."""
-        # need to call this in the insert method of Bst.
-        right_depth = self.right.depth()
-        left_depth = self.left.depth()
-
+        try:
+            right_depth = self.right.depth()
+        except:
+            right_depth = 0
+        try:
+            left_depth = self.left.depth()
+        except:
+            left_depth = 0
+        balance = left_depth - right_depth
+        return balance
 
 
 class Bst(object):
@@ -159,7 +171,31 @@ class Bst(object):
                     new_node.parent = current_node
                     flag = False
                 else:
-                    break
+                    flag = False
+        if new_node.parent:
+            self.self_balance(new_node)
+
+    def self_balance(self, node):
+        """Auto balance the tree after insertion."""
+        parent_node = node.parent
+        current_node = node
+        while parent_node:
+            parent_balance = parent_node.check_balance()
+            if parent_balance > 1:
+                if parent_node.left.check_balance() < 0:
+                    parent_node.left_right_conversion()
+                    parent_node.right_rotation()
+                else:
+                    parent_node.right_rotation()
+            elif parent_balance < -1:
+                if parent_node.right.check_balance() > 0:
+                    parent_node.right_left_conversion()
+                    parent_node.left_rotation()
+                else:
+                    parent_node.left_rotation()
+            current_node = parent_node
+            parent_node = parent_node.parent
+        self.head = current_node
 
     def contains(self, val):
         """Return true or false if the value exists or not."""

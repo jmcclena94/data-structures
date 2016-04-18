@@ -37,9 +37,9 @@ def test_insert_three_values():
     new_bst.insert(3)
     new_bst.insert(5)
     new_bst.insert(4)
-    assert new_bst.head.value == 3
+    assert new_bst.head.value == 4
     assert new_bst.head.right.value == 5
-    assert new_bst.head.right.left.value == 4
+    assert new_bst.head.left.value == 3
 
 
 def test_insert_value_already_exists():
@@ -82,11 +82,11 @@ def test_get_size():
 def test_depth():
     """Test depth works."""
     from bst import Bst
-    r = range(10)
+    r = range(5)
     new_bst = Bst()
     for i in r:
         new_bst.insert(i)
-    assert new_bst.depth() == 10
+    assert new_bst.depth() == 3
 
 
 def test_balance_left_two_nodes():
@@ -127,21 +127,31 @@ def test_balance_empty_list():
 def test_balance_right_complex():
     """Test a right heavy list with multiple nodes."""
     from bst import Bst
-    r = range(10)
+    r = range(5)
     new_bst = Bst()
     for i in r:
         new_bst.insert(i)
-    assert new_bst.balance() == -9
+    assert new_bst.balance() == -1
+    assert new_bst.head.value == 1
+    assert new_bst.head.left.value == 0
+    assert new_bst.head.right.value == 3
+    assert new_bst.head.right.right.value == 4
+    assert new_bst.head.right.left.value == 2
 
 
 def test_balance_left_complex():
     """Test a left heavy list with multiple nodes."""
     from bst import Bst
-    r = range(10, 0, -1)
+    r = range(4, -1, -1)
     new_bst = Bst()
     for i in r:
         new_bst.insert(i)
-    assert new_bst.balance() == 9
+    assert new_bst.balance() == 1
+    assert new_bst.head.value == 3
+    assert new_bst.head.right.value == 4
+    assert new_bst.head.left.value == 1
+    assert new_bst.head.left.right.value == 2
+    assert new_bst.head.left.left.value == 0
 
 
 def test_balance_equal_complex():
@@ -154,7 +164,16 @@ def test_balance_equal_complex():
     r2 = range(10, 14)
     for i in r2:
         new_bst.insert(i)
-    assert new_bst.balance() == 0
+    assert new_bst.balance() == -1
+    assert new_bst.head.value == 4
+    assert new_bst.head.right.value == 10
+    assert new_bst.head.right.left.value == 5
+    assert new_bst.head.right.right.value == 12
+    assert new_bst.head.right.right.left.value == 11
+    assert new_bst.head.right.right.right.value == 13
+    assert new_bst.head.left.value == 2
+    assert new_bst.head.left.left.value == 1
+    assert new_bst.head.left.right.value == 3
 
 
 def test_in_order():
@@ -244,11 +263,10 @@ def test_delete_on_small_range():
     new_bst.delete(1)
     assert new_bst.contains(1) is False
     assert new_bst.size == 4
-    assert new_bst.head.right.value == 2
-    assert new_bst.head.right.right.value == 3
-    assert new_bst.head.right.right.right.value == 4
-    assert new_bst.head.right.right.right.right is None
-    assert new_bst.head.left is None
+    assert new_bst.head.value == 2
+    assert new_bst.head.left.value == 0
+    assert new_bst.head.right.value == 3
+    assert new_bst.head.right.right.value == 4
 
 
 def test_edge_cases_delete_tree():
@@ -278,10 +296,10 @@ def test_off_balance_delete_tree():
     new_bst.delete(10)
     assert new_bst.contains(10) is False
     assert new_bst.size == 4
-    assert new_bst.head.value == 20
-    assert new_bst.head.right.value == 25
+    assert new_bst.head.value == 15
+    assert new_bst.head.right.value == 20
     assert new_bst.head.left.value == 5
-    assert new_bst.head.left.right.value == 15
+    assert new_bst.head.right.right.value == 25
 
 
 def test_off_balance_delete_tree_non_head():
@@ -323,7 +341,9 @@ def test_search():
 
 
 def test_left_right_conversion_three_nodes():
-    """Test that given three nodes in a left-right state converts to left-left."""
+    """
+    Test that given three nodes in a left-right state converts to left-left.
+    """
     from bst import Bst, Node
     new_bst = Bst()
     node1 = Node(15)
@@ -342,7 +362,9 @@ def test_left_right_conversion_three_nodes():
 
 
 def test_left_right_conversion_six_nodes():
-    """Test that given six nodes in a left-right state converts to left-left."""
+    """
+    Test that given six nodes in a left-right state converts to left-left.
+    """
     from bst import Bst, Node
     new_bst = Bst()
     node1 = Node(10)
@@ -369,7 +391,9 @@ def test_left_right_conversion_six_nodes():
 
 
 def test_right_left_conversion_three_nodes():
-    """Test that given three nodes in a right-left state converts to right-right."""
+    """
+    Test that given three nodes in a right-left state converts to right-right.
+    """
     from bst import Bst, Node
     new_bst = Bst()
     node1 = Node(10)
@@ -388,7 +412,9 @@ def test_right_left_conversion_three_nodes():
 
 
 def test_right_left_conversion_six_nodes():
-    """Test that given six nodes in a left-right state converts to left-left."""
+    """
+    Test that given six nodes in a left-right state converts to left-left.
+    """
     from bst import Bst, Node
     new_bst = Bst()
     node1 = Node(10)
@@ -460,8 +486,8 @@ def test_depth_from_node_three_nodes():
     new_bst.insert(15)
     new_bst.insert(20)
     # fails until balancing function is created
-    assert new_bst.head.depth() == 3
-    assert new_bst.head.right.depth() == 2
+    assert new_bst.head.depth() == 2
+    assert new_bst.head.right.depth() == 1
 
 
 def test_check_balance_right_right():
@@ -471,7 +497,9 @@ def test_check_balance_right_right():
     new_bst.insert(10)
     new_bst.insert(15)
     new_bst.insert(20)
-    assert new_bst.balance() == -2
+    assert new_bst.head.check_balance() == 0
+    assert new_bst.head.right.check_balance() == 0
+    assert new_bst.head.left.check_balance() == 0
 
 
 def test_check_balance_left_left():
@@ -481,4 +509,6 @@ def test_check_balance_left_left():
     new_bst.insert(15)
     new_bst.insert(12)
     new_bst.insert(10)
-    assert new_bst.balance() == 2
+    assert new_bst.head.check_balance() == 0
+    assert new_bst.head.left.check_balance() == 0
+    assert new_bst.head.right.check_balance() == 0
