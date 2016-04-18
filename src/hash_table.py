@@ -20,3 +20,11 @@ class HashTable(object):
     def set(self, key, value):
         """Set the value using the key in the hash table."""
         self.table[self._hash(key)].append((key, value))
+
+    def get(self, key):
+        """Return value of a given key."""
+        key_list = self.table[self._hash(key)]
+        for vals in key_list:
+            if vals[0] == key:
+                return vals[1]
+
