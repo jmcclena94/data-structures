@@ -93,7 +93,6 @@ class Node(object):
         temp = self.right.left
         self.right.left = self
         self.right = temp
-        # self.parent.parent.left = self.parent
 
     def right_rotation(self):
         """Rotate three node structure clockwise."""
@@ -106,12 +105,9 @@ class Node(object):
         temp = self.left.right
         self.left.right = self
         self.left = temp
-        # self.parent.parent.right = self.parent
 
     def depth(self):
         """Find the depth of the tree from the node."""
-        # if self.head is None:
-        #     return 0
         to_visit = [self]
         depths_visited = [1]
         tree_depth = 0
