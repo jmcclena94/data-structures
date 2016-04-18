@@ -296,10 +296,10 @@ def test_off_balance_delete_tree():
     new_bst.delete(10)
     assert new_bst.contains(10) is False
     assert new_bst.size == 4
-    assert new_bst.head.value == 20
-    assert new_bst.head.right.value == 25
+    assert new_bst.head.value == 15
+    assert new_bst.head.right.value == 20
     assert new_bst.head.left.value == 5
-    assert new_bst.head.left.right.value == 15
+    assert new_bst.head.right.right.value == 25
 
 
 def test_off_balance_delete_tree_non_head():

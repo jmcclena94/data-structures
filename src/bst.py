@@ -176,7 +176,8 @@ class Bst(object):
                     flag = False
                 else:
                     flag = False
-        self.self_balance(new_node)
+        if new_node.parent:
+            self.self_balance(new_node)
 
     def self_balance(self, node):
         """Auto balance the tree after insertion."""
@@ -191,7 +192,6 @@ class Bst(object):
                 else:
                     parent_node.right_rotation()
             elif parent_balance < -1:
-                # import pdb; pdb.set_trace()
                 if parent_node.right.check_balance() > 0:
                     parent_node.right_left_conversion()
                     parent_node.left_rotation()
