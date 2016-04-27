@@ -1,4 +1,20 @@
 # coding=utf-8
+def test_check_input_true():
+    """Test that a token we believe to be good returns True."""
+    from trie import Trie
+    trie = Trie()
+    token = 'computer'
+    assert trie._check_token(token)
+
+
+def test_check_input_false():
+    """Test that a token we believe to be bad returns False."""
+    from trie import Trie
+    trie = Trie()
+    token = '$computer'
+    assert trie._check_token(token) is False
+
+
 def test_insert_one_token():
     """Test when token is inserted into the trie correctly."""
     from trie import Trie
