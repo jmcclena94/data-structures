@@ -23,7 +23,8 @@ Contains methods for creating:
         Dijkstra and Bellman shortest paths are similar but since the Dijkstra algorithm prioritizes searching the child with the smallest weight first, you can cut out some of the steps where we are replacing the child's distance from the search node.  This means the Dijkstra search is faster than the Bellman search.
     Binary Search Tree with traversals
     Hash Table
-    Trie 
+    Trie
+    Trie Traversal  
 Tools used:
     python docs
     stack overflow

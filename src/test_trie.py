@@ -103,3 +103,58 @@ def test_contains_on_shorter():
     token = 'pig'
     trie.insert(token)
     assert trie.contains('piglet') is False
+
+
+def test_traversal():
+    """Test traversal on trie."""
+    from trie import Trie
+    word_list = []
+    trie = Trie()
+    token1 = 'power'
+    token2 = 'free'
+    trie.insert(token1)
+    trie.insert(token2)
+    for word in trie.traversal(start=trie.container):
+        word_list.append(word)
+    assert token1 in word_list
+    assert token2 in word_list
+
+
+def test_traversal_on_similar():
+    """Test traversal on trie with similar words."""
+    from trie import Trie
+    word_list = []
+    trie = Trie()
+    token1 = 'free'
+    token2 = 'freedom'
+    trie.insert(token1)
+    trie.insert(token2)
+    for word in trie.traversal(start=trie.container):
+        word_list.append(word)
+    assert token1 in word_list
+    assert token2 in word_list
+
+
+def test_traversal_no_words():
+    """Test traversal on trie with no words."""
+    from trie import Trie
+    word_list = []
+    trie = Trie()
+    for word in trie.traversal(start=trie.container):
+        word_list.append(word)
+    assert word_list == []
+
+
+def test_traversal_with_apostrophe():
+    """Test traversal on trie with apostrophe."""
+    from trie import Trie
+    word_list = []
+    trie = Trie()
+    token1 = "blade's"
+    token2 = "fortune's"
+    trie.insert(token1)
+    trie.insert(token2)
+    for word in trie.traversal(start=trie.container):
+        word_list.append(word)
+    assert token1 in word_list
+    assert token2 in word_list

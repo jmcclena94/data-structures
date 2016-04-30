@@ -42,3 +42,16 @@ class Trie(object):
         except KeyError:
             return False
 
+    def traversal(self, start=None):
+        """Traverse the trie."""
+        path = [start]
+        word_list = ['']
+        while path:
+            current_dict = path.pop()
+            current_word = word_list.pop()
+            for key in current_dict.keys():
+                if key == '$':
+                    yield current_word
+                else:
+                    path.append(current_dict[key])
+                    word_list.append(current_word + key)
