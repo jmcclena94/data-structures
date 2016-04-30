@@ -24,7 +24,8 @@ Contains methods for creating:
     Binary Search Tree with traversals
     Hash Table
     Trie
-    Trie Traversal  
+    Trie Traversal
+    Trie Autocomplete  
 Tools used:
     python docs
     stack overflow

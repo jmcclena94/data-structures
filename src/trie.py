@@ -55,3 +55,19 @@ class Trie(object):
                 else:
                     path.append(current_dict[key])
                     word_list.append(current_word + key)
+
+    def autocomplete(self, token):
+        """Given a token return list of connected words."""
+        sub_dict = self.container
+        for letter in token:
+            try:
+                sub_dict = sub_dict[letter]
+            except KeyError:
+                return []
+        auto_list = []
+        for word_fragment in self.traversal(start=sub_dict):
+            if len(auto_list) < 4:
+                auto_list.append(token + word_fragment)
+            else:
+                break
+        return auto_list

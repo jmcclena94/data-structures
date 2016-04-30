@@ -158,3 +158,68 @@ def test_traversal_with_apostrophe():
         word_list.append(word)
     assert token1 in word_list
     assert token2 in word_list
+
+
+def test_autocomplete_two_words_from_root():
+    """Test that autocomplete functions when input token is at the root."""
+    from trie import Trie
+    trie = Trie()
+    token1 = "rifle"
+    token2 = "adze"
+    token3 = "rifleman"
+    trie.insert(token1)
+    trie.insert(token2)
+    trie.insert(token3)
+    auto = trie.autocomplete('rif')
+    assert token1 in auto
+    assert token3 in auto
+    assert token2 not in auto
+
+
+def test_autocomplete_not_from_root():
+    """Test that autocomplete functions when input token is in trie not root."""
+    from trie import Trie
+    trie = Trie()
+    rifle = "rifle"
+    adze = "adze"
+    rifleman = "rifleman"
+    owl = "owl"
+    owled = "owled"
+    owl_s = "owl's"
+    word_list = [rifle, adze, rifleman, owl, owled, owl_s]
+    for indx in word_list:
+        trie.insert(indx)
+    auto = trie.autocomplete('owl')
+    assert owl_s in auto
+    assert owled in auto
+    assert owl in auto
+    assert adze not in auto
+
+
+def test_autocomplete_on_non_existent_token():
+    """Test that autocomplete returns empty list if token not in trie."""
+    from trie import Trie
+    trie = Trie()
+    token1 = "rifle"
+    token2 = "adze"
+    token3 = "rifleman"
+    trie.insert(token1)
+    trie.insert(token2)
+    trie.insert(token3)
+    auto = trie.autocomplete('goat')
+    assert auto == []
+
+
+def test_autocomplete_greater_than_five_possibilities():
+    """Test that autocomplete only returns a list of 4 when more available."""
+    from trie import Trie
+    trie = Trie()
+    rain = 'rain'
+    rain_s = "rain's"
+    rainy = 'rainy'
+    raining = 'raining'
+    rainstorm = 'rainstorm'
+    word_list = [rain, rain_s, rainy, raining, rainstorm]
+    for indx in word_list:
+        trie.insert(indx)
+    assert len(trie.autocomplete(rain)) == 4
