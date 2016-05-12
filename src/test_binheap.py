@@ -16,15 +16,31 @@ POP_TABLE = [
 @pytest.mark.parametrize('value, result', PUSH_TABLE)
 def test_push(value, result):
     from binheap import Binheap
-    new_heap = Binheap()
-    new_heap.push(value)
+    new_heap = Binheap(value)
+    # new_heap.push(value)
     assert new_heap.binheap == result
 
 
 @pytest.mark.parametrize('value, result', POP_TABLE)
 def test_pop(value, result):
     from binheap import Binheap
-    new_heap = Binheap()
-    new_heap.push(value)
+    new_heap = Binheap(value)
+    # new_heap.push(value)
     new_heap.pop()
     assert new_heap.binheap == result
+
+
+def test_empty_push():
+    """push single item into empty binheap."""
+    from binheap import Binheap
+    new_heap = Binheap()
+    new_heap.push(0)
+    assert new_heap.length == 1
+
+
+def test_empty_pop():
+    """pop out of empty binheap, raise indexerror."""
+    from binheap import Binheap
+    new_heap = Binheap()
+    with pytest.raises(IndexError):
+        new_heap.pop()

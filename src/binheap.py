@@ -3,10 +3,13 @@
 
 class Binheap(object):
 
-    def __init__(self):
+    def __init__(self, values=None):
         self.binheap = []
         self.root = None
         self.length = 0
+        if values:
+            for value in values:
+                self.push(value)
 
     def _sort_up(self):
         idx = self.length
@@ -21,10 +24,9 @@ class Binheap(object):
         self.root = self.binheap[0]
 
     def push(self, value):
-        for item in value:
-            self.binheap.append(item)
-            self.length += 1
-            self._sort_up()
+        self.binheap.append(value)
+        self.length += 1
+        self._sort_up()
 
     def pop(self):
         pop_val = self.binheap[0]
