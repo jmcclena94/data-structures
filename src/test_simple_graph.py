@@ -121,7 +121,7 @@ def test_depth_first_traversal():
                        'C': {'F': 16},
                        'F': {},
                        }
-    visited = new_graph.dft('A')
+    visited = new_graph.depth_first_traversal('A')
     keys = list(new_graph.graph.keys())
     for val in visited:
         assert val in keys
@@ -137,7 +137,7 @@ def test_dft_cyclic():
                        'C': {'F': 16},
                        'F': {'A': 100},
                        }
-    visited = new_graph.dft('A')
+    visited = new_graph.depth_first_traversal('A')
     keys = list(new_graph.graph.keys())
     for val in visited:
         assert val in keys
@@ -153,7 +153,7 @@ def test_breadth_first_traversal():
                        'C': {'F': 16},
                        'F': {},
                        }
-    visited = new_graph.bft('A')
+    visited = new_graph.breadth_first_traversal('A')
     keys = list(new_graph.graph.keys())
     for val in visited:
         assert val in keys
@@ -169,7 +169,7 @@ def test_bft_cyclic():
                        'C': {'F': 16},
                        'F': {'A': 100},
                        }
-    visited = new_graph.bft('A')
+    visited = new_graph.breadth_first_traversal('A')
     keys = list(new_graph.graph.keys())
     for val in visited:
         assert val in keys

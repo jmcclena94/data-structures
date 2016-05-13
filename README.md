@@ -24,11 +24,12 @@ Priority Queue
 
 Directed Graph
 * Depth first traversal
+```Perform a full depth-first traversal of the graph beginning at start. Return the full visited path when traversal is complete.```
 * Breadth first traversal
+```Perform a full breadth-first traversal of the graph, beginning at start. Return the full visited path when traversal is complete.```
 * Dijkstra shortest path search
 * Bellman shortest path search
-
-        Dijkstra and Bellman shortest paths are similar but since the Dijkstra algorithm prioritizes searching the child with the smallest weight first, you can cut out some of the steps where we are replacing the child's distance from the search node.  This means the Dijkstra search is faster than the Bellman search.
+```Dijkstra and Bellman shortest paths are similar but since the Dijkstra algorithm prioritizes searching the child with the smallest weight first, you can cut out some of the steps where we are replacing the child's distance from the search node.  This means the Dijkstra search is faster than the Bellman search.```
 
 Binary Search Tree with traversals
 

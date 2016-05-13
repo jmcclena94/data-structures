@@ -83,7 +83,7 @@ class SimpleGraph(object):
         except KeyError:
             raise KeyError
 
-    def dft(self, start):
+    def depth_first_traversal(self, start):
         """Return a list of visited nodes for depth first traversal."""
         to_visit = [start]
         visited = []
@@ -94,7 +94,7 @@ class SimpleGraph(object):
                 to_visit = to_visit + list(self.graph[next_val].keys())
         return visited
 
-    def bft(self, start):
+    def breadth_first_traversal(self, start):
         """Return a list of visited nodes for breadth first traversal."""
         to_visit = [start]
         visited = []
@@ -173,12 +173,12 @@ if __name__ == '__main__':
                        'C': {'F': 16},
                        'F': {'A': 100},
                        }
-    dft = new_graph.dft('A')
-    bft = new_graph.bft('A')
-    print("Depth first traversal:" + str(dft))
-    print("Breadth first traversal:" + str(bft))
+    depth_first_traversal = new_graph.depth_first_traversal('A')
+    breadth_first_traversal = new_graph.breadth_first_traversal('A')
+    print("Depth first traversal:" + str(depth_first_traversal))
+    print("Breadth first traversal:" + str(breadth_first_traversal))
     new_graph.add_edge('F', 'C', 10)
-    dft = new_graph.dft('A')
-    bft = new_graph.bft('A')
-    print("Depth first traversal(cyclic):" + str(dft))
-    print("Breadth first traversal(cyclic):" + str(bft))
+    depth_first_traversal = new_graph.depth_first_traversal('A')
+    breadth_first_traversal = new_graph.breadth_first_traversal('A')
+    print("Depth first traversal(cyclic):" + str(depth_first_traversal))
+    print("Breadth first traversal(cyclic):" + str(breadth_first_traversal))
