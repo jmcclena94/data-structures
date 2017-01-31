@@ -21,7 +21,7 @@ class SimpleGraph(object):
         node_list = list(self.graph.keys())
         if n1 not in node_list:
             self.add_node(n1)
-        elif n2 not in node_list:
+        if n2 not in node_list:
             self.add_node(n2)
         self.graph[n1][n2] = weight
 
@@ -60,10 +60,7 @@ class SimpleGraph(object):
     def has_node(self, n):
         """Check if the graph has node n."""
         node_list = list(self.graph.keys())
-        if n in node_list:
-            return True
-        else:
-            return False
+        return n in node_list
 
     def neighbors(self, n):
         """Return the neighbors of node n."""
@@ -76,10 +73,7 @@ class SimpleGraph(object):
         """Check if n1 is connected to n2"""
         try:
             self.graph[n2]
-            if n2 in self.graph[n1]:
-                return True
-            else:
-                return False
+            return n2 in self.graph[n1]
         except KeyError:
             raise KeyError
 
